@@ -2,41 +2,80 @@ import * as baseService from './base';
 
 let loggedIn = false;
 
+// function isLoggedIn() {
+//     console.log(loggedIn);
+//     return loggedIn;
+// }
+
 function isLoggedIn() {
+    if (localStorage.getItem('authtoken')) {
+        baseService.populateAuthToken();
+        loggedIn = true;
+    }
     return loggedIn;
 }
 
-async function checkLogin() {
+function checkLogin() {
     if (loggedIn) {
-        return true;
+        return Promise.resolve(true);
     } else {
         baseService.populateAuthToken();
-        try {
-            let user = await me();
+        return me()
+        .then((user) => {
             loggedIn = true;
-            return true;
-        } catch (e) {
-            return false;
-        }
+            return Promise.resolve(true);
+        }).catch(() => {
+            return Promise.resolve(false);
+        });
     }
 }
 
-async function login(email, password) {
-    let response = await baseService.makeFetch('/api/auth/login', {
+function checkUser() {
+    return me()
+    .then((author) => {
+        return author.id;
+    }).catch((err) => {
+        console.log(err);
+    });
+}
+
+function checkName() {
+    return me()
+    .then((author) => {
+        return author.name;
+    }).catch((err) => {
+        console.log(err);
+    });
+}
+
+
+function getAuthor(id) {
+    console.log(id);
+    return baseService.get(`/api/auth/${id}`);
+}
+
+function login(email, password) {
+    return baseService.makeFetch('/api/auth/login', {
         method: 'POST',
         body: JSON.stringify({ email, password }),
         headers: new Headers({
             'Content-Type': 'application/json'
         })
+    })
+    .then((response) => {
+        if (response.ok) {
+            return response.json()
+            .then((jsonResponse) => {
+                baseService.setAuthToken(jsonResponse.token);
+                loggedIn = true;
+            });
+        } else if (response.status === 401) {
+            return response.json()
+            .then((jsonResponse) => {
+                throw jsonResponse;
+            });
+        }
     });
-    if (response.ok) {
-        let json = await response.json();
-        baseService.setAuthToken(json.token);
-        loggedIn = true;
-    } else if (response.status === 401) {
-        let json = await response.json();
-        throw json;
-    }
 }
 
 function logout() {
@@ -48,4 +87,18 @@ function me() {
     return baseService.get('/api/users/me');
 }
 
-export { isLoggedIn, checkLogin, login, logout };
+function signup(name, email, password) {
+    return baseService.makeFetch('/api/auth/signup', {
+        method: 'POST',
+        body: JSON.stringify({ name, email, password }),
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        })
+    }).then((result) => {
+        console.log(result);
+    }).catch((err) => {
+        console.log(err);
+    })
+}
+
+export { isLoggedIn, checkLogin, checkUser, login, logout, signup, getAuthor, checkName };

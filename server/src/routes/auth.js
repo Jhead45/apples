@@ -25,8 +25,7 @@ router.post('/signup', (req, res) => {
     generateHash(req.body.hash)
         .then((hash) => {
             users.insert({
-                role: req.body.role,
-                contact_agreement: req.body.contact_agreement,
+                // contact_agreement: req.body.contact_agreement,
                 email: req.body.email,
                 username: req.body.username,
                 hash: hash
