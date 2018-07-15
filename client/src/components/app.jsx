@@ -1,29 +1,31 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
-import HelloWorld from './hello';
-import GoodbyeWorld from './goodbye';
-import Donate from './donate';
+import Suggestions from './suggestions';
+import News from './news';
+import AccountView from './accountView';
+import Profiles from './profiles';
+import Signup from './signUp';
 
 import PrivateRoute from './auth/privateRoute';
 import Login from './auth/login';
 import Logout from './auth/logout';
 import AuthButton from './auth/authButton';
 
-class Navigation extends Component {
+class App extends Component {
 
     render() {
         return (
             <Router>
                 <Fragment>
-                    <Link to="/goodbye">Goodbye</Link>
                     <AuthButton />
                     <Switch>
-                        <Route exact path="/" component={HelloWorld} />
-                        <Route path="/login" component={Login} />
-                        <Route path="/logout" component={Logout} />
-                        <Route path="/donate" component={Donate} />
-                        <PrivateRoute path="/goodbye" component={GoodbyeWorld} />
+                        <Route exact path="/" component={App} />
+                        <Route exact path="/login" component={Login} />
+                        <Route exact path="/logout" component={Logout} />
+                        <Route path="/signup" component={Signup} />
+                        <PrivateRoute path="/profiles" component={Profiles} />
+                        <PrivateRoute path="/accountView" component={AccountView} />
                     </Switch>
                 </Fragment>
             </Router>
@@ -31,4 +33,4 @@ class Navigation extends Component {
     }
 }
 
-export default Navigation;
+export default App;

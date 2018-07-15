@@ -1,7 +1,7 @@
 import React from 'react';
 import { CardElement } from 'react-stripe-elements';
 
-class CardSection extends React.Component {
+class News extends React.Component {
     render() {
         return (
             <CardElement />
@@ -9,4 +9,4 @@ class CardSection extends React.Component {
     }
 };
 
-export default CardSection;
+export default News;
