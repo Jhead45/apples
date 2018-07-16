@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import * as classService from '../services/classes';
+// import * as classService from '../services/classes';
 
 class Suggestions extends Component {
     

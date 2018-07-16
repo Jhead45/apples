@@ -10,11 +10,11 @@ let tokensTable = new Table('tokens');
 
 function configurePassport(app) {
     passport.use(new LocalStrategy({
-        usernameField: 'username',
+        usernameField: 'email',
         passwordField: 'password',
         session: false,
-    }, (username, password, done) => {
-        usersTable.find({ username })
+    }, (email, password, done) => {
+        usersTable.find({ email })
         .then((results)=> results[0])
         .then((user) =>  {
             if (user && user.hash) {

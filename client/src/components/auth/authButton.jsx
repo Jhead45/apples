@@ -11,10 +11,10 @@ const AuthButton = (props) => {
                 </div>
                 <div className="row">
                     <nav className="navbar navbar-expand-lg col-md-12 navbar-light bg-light">
-                        <Link className="font-weight-bold text-info col-md-3" to="/logout">Logout</Link>
                         <Link className="font-weight-bold text-info col-md-3" to="/">Home</Link>
                         <Link className="font-weight-bold text-info col-md-3" to="/profiles">Profiles</Link>
-                        <Link className="font-weight-bold text-info col-md-3" to="/accountView">My Account</Link>
+                        <Link className="font-weight-bold text-info col-md-3" to="/accountView">Edit Profile</Link>
+                        <Link className="font-weight-bold text-info col-md-3" to="/logout">Logout</Link>
                     </nav>
                 </div>
             </div>
@@ -30,8 +30,10 @@ const AuthButton = (props) => {
             </div>
             <div className="row">
                 <nav className="navbar navbar-expand-lg col-md-12 navbar-light bg-light">
-                    <Link className="font-weight-bold text-info col-md-6" to="/signup">Sign Up</Link>
-                    <Link className="font-weight-bold text-info col-md-6" to="/login">Login</Link>
+                    <Link className="font-weight-bold text-info col-md-4" to="/">Home</Link>
+                    <Link className="font-weight-bold text-info col-md-4" to="/login">Login</Link>
+                    <Link className="font-weight-bold text-info col-md-4" to="/signup">Sign up</Link>
+
                 </nav>
             </div>
         </div>

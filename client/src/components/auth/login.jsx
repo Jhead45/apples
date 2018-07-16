@@ -16,7 +16,8 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        userService.checkLogin().then((loggedIn) => {
+        userService.checkLogin()
+        .then((loggedIn) => {
             if (loggedIn) {
                 this.setState({
                     redirectToReferrer: true,

@@ -42,7 +42,7 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
     try {
         // not concerned about getting a value back, just waiting on update to finish
-        await profileTable.update(req.params.id, req.body);
+        await profilesTable.update(req.params.id, req.body);
         res.sendStatus(200);
     } catch (err) {
         console.log(err);
